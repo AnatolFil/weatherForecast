@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:weatherForecast"
         mc:Ignorable="d"
-        Title="WeatherForecast" Height="450" Width="800">
+        Title="WeatherForecast" Height="465" Width="797">
     <Grid>
         <Label Content="День с минимальной разницей ощущаемой и реальной температуры" HorizontalAlignment="Left" Margin="10,25,0,0" VerticalAlignment="Top" Width="406" Height="27"/>
         <Label x:Name="lblDayMinDif" Content="-" HorizontalAlignment="Left" Margin="16,57,0,0" VerticalAlignment="Top" Width="245" />
         <Label Content="Максимальная продолжительность светового дня" HorizontalAlignment="Left" Margin="16,88,0,0" VerticalAlignment="Top" Width="384"/>
         <Label x:Name="lblMaxLightDay" Content="0" HorizontalAlignment="Left" Margin="16,114,0,0" VerticalAlignment="Top" Width="270"/>
+        <Button x:Name="btnUpdate" Content="Обновить" HorizontalAlignment="Left" Margin="699,398,0,0" VerticalAlignment="Top" Width="70" Click="btnUpdate_Click"/>
 
     </Grid>
 </Window>
