@@ -1,0 +1,1 @@
+Application WPF .net 5. get weather forecast from openwether throgh their API and show info about min difference between feeling temprture and real tempreture, date it will happen, max  light day in houres and date when it will happen (max 5 days forecast).
