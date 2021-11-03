@@ -25,35 +25,44 @@ namespace weatherForecast
     /// </summary>
     public partial class MainWindow : Window
     {
+        ///HttpClient для отправки запросов
         private static readonly HttpClient client = new HttpClient();
+
+        ///Структура для хранения данных о минимальной разнице температур и даты, когда
+        ///предположительно будет установлено
         private struct minDif
         {
             public string minDifTemp { get; set; }
             public string minDifDate { get; set; }
         }
 
+        ///Структура для хранения данных о максимальной продолжительности светового дня
+        ///и даты, когда это предположительно произойдет
         private struct maxLightDay
         {
             public string maxLDLen { get; set; }
             public string DLDate { get; set; }
         }
-
+        
+        ///Структура для хранения данных о минимальной разнице температур и продолждительности
+        ///светового дня
         private struct weatherRes
         {
             public minDif minDifTemp { get; set; }
             public maxLightDay maxLD { get; set; }
         }
+
         public  MainWindow()
         {
-            InitializeComponent();
-            
+            InitializeComponent();       
         }
 
         /// <summary>
-        /// Запрашивает данные, используя API openweathermap, для расчета минимальной разницы ночных температур ("ощущаемой" и реальной),
-        /// а так же данные для расчета продолжительности дня. 
+        /// Запрашивает данные, используя API openweathermap, для расчета минимальной разницы ночных температур ("ощущаемой" и реальной) 
+        /// (если в задании подразумевается разность температур без возведения в модуль),
+        /// а так же данные для расчета продолжительности светового дня. 
         /// </summary>
-        /// <returns>Возвращает структуру содержащую минимальную разницу температур, дату когда
+        /// <returns>Возвращает структуру, содержащую минимальную разницу температур, дату когда
         /// данная разница предположительно будет зафиксированна, максимальную продолжительность 
         /// светового дня в часах, дату когда предположительно это произойдет</returns>
         private async Task<weatherRes> getWeatherForecast()
@@ -87,7 +96,8 @@ namespace weatherForecast
         }
 
         /// <summary>
-        /// Извлекает данные о минимальной разнице температур в ночное время
+        /// Извлекает данные о минимальной разнице температур в ночное время (если в задании подразумевается
+        /// разность температур без возведения в модуль)
         /// и получает дату когда это предположительно будет зафиксированно
         /// </summary>
         /// <param name="listWeather"> содержит десериализованные из JSON почасовые данные о погоде </param>
@@ -104,7 +114,8 @@ namespace weatherForecast
                 if(item.sys.pod == "n")
                 {
                     double dif = Convert.ToDouble(item.main.feels_like) - Convert.ToDouble(item.main.temp);
-                    //Если разница температур меньше чем данные которые мы получили ранее 
+                    //Если разница температур меньше чем данные которые мы получили ранее (если в задании подразумевается
+                    /// разность температур без возведения в модуль)
                     if (minDif > dif)
                     {
                         minDif = dif;
@@ -121,7 +132,7 @@ namespace weatherForecast
         /// Извлекает данные о максимальной продолжительности дня и дату когда это
         /// предположительно произойдет
         /// </summary>
-        /// <param name="listWeather">содержит десериализованные из JSON ежедненвные данные о погоде </param>
+        /// <param name="listWeather">содержит десериализованные из JSON ежедневный прогназ погоды </param>
         /// <returns>Возвращет структуру, содержащую данные с максимальной продолжительностью дня в часах
         /// и дату когда это будет предположительно зафиксированно</returns>
         private maxLightDay getMaxLightDate(IEnumerable<dynamic> listWeather)
@@ -147,9 +158,9 @@ namespace weatherForecast
         }
 
         /// <summary>
-        /// Преобразует время из формата Unix UTC в DateTeime
+        /// Преобразует время из формата Unix UTC в DateTime
         /// </summary>
-        /// <param name="unixTimeStamp">время d форматt Unix UTC</param>
+        /// <param name="unixTimeStamp">время в формате Unix UTC</param>
         /// <returns>Возвращет преобразованную дату в DateTime</returns>
         private DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
@@ -160,10 +171,10 @@ namespace weatherForecast
         }
 
         /// <summary>
-        /// Заполняет поля lable на форме данными о минимальной разнице температур, даты, 
+        /// Заполняет поля labl на форме данными о минимальной разнице температур, даты, 
         /// максимальной продолжительности дня и даты когда это предположительно произойдет
         /// </summary>
-        /// <param name="WD">структура, которая содержит данными о минимальной разнице температур, даты, 
+        /// <param name="WD">структура, которая содержит данные о минимальной разнице температур, даты, 
         /// максимальной продолжительности дня и даты когда это предположительно произойдет</param>
         private void setWeatherData(weatherRes WD)
         {
