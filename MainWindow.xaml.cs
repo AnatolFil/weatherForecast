@@ -71,7 +71,7 @@ namespace weatherForecast
             try
             {
                 //Запрашиваем данные для расчета минимальной разницы температур
-                var responseString = await client.GetAsync("http://api.openweathermap.org/data/2.5/forecast?id=539839&units=metric&appid=a1844320d6a512c4c61a813ca116763d");
+                var responseString = await client.GetAsync("http://api.openweathermap.org/data/2.5/forecast?id=539839&units=metric&appid=xxxxxxxxxxxxxxxx");
                 var json = await responseString.Content.ReadAsStringAsync();
                 //Десериализум полученные данные в динамический тип
                 dynamic weather = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
@@ -80,7 +80,7 @@ namespace weatherForecast
                 res.minDifTemp = resMin;
                 
                 //Запрашиваем данные для расчета максимальной продолжительности дня
-                responseString = await client.GetAsync("http://api.openweathermap.org/data/2.5/onecall?lat=59.907&lon=30.512&units=metric&exclude=current,minutely,hourly,alerts,hourly&appid=a1844320d6a512c4c61a813ca116763d");
+                responseString = await client.GetAsync("http://api.openweathermap.org/data/2.5/onecall?lat=59.907&lon=30.512&units=metric&exclude=current,minutely,hourly,alerts,hourly&appid=xxxxxxxxxxxxxxxxxxxxxxxxxx");
                 json = await responseString.Content.ReadAsStringAsync();
                 //Десериализум полученные данные в динамический тип
                 weather = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
